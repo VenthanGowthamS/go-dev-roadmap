@@ -7,7 +7,6 @@ This repository contains basic programs I wrote while learning the Go programmin
 - HTTP Server
 - Recursive Fibonacci
 - Structs and Pointers
-- More coming soon...
 
 ## 📁 Folder Structure
 ```
@@ -42,7 +41,7 @@ https://go.dev/dl/
 Inside the `hello-world` folder, run:
 
 ```
-bash
+bash or in terminal
 go mod init hello-world
 
 ```
@@ -51,9 +50,7 @@ go mod init hello-world
 ```
 go run main.go
 
-go run .
+go run . ( if more than one go file)
 
 
 ---
-
-Let me know if you’d like me to customize this further — for example, adding links to specific files or breaking down your learning timeline.
