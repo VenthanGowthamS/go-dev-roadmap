@@ -8,20 +8,33 @@ This repository contains basic programs I wrote while learning the Go programmin
 - Recursive Fibonacci
 - Structs and Pointers
 
+- and many more..
+
 ## 📁 Folder Structure
 ```
-go_projects/
-├── hello-world/
-│ └── main.go
-├── fibonacci-recursive/
-│ └── main.go
-├── http-server/
-│ └── main.go
-├── struct-practice/
-│ └── main.go
-├── pointer-struct/
-│ └── struct-pointer.go
-└── README.md
+go-learning-journey/
+├── hello-world/           # Your first Go program
+│   └── main.go
+├── fibonacci-recursive/   # Recursive Fibonacci example
+│   └── main.go
+├── http-server/           # Simple HTTP server
+│   └── main.go
+├── struct-practice/       # Structs and methods
+│   └── main.go
+├── pointer-struct/        # Working with pointers and structs
+│   └── struct-pointer.go
+├── guessing-game/         # Number guessing game using loops
+│   └── main.go
+├── word-counter/          # Word frequency counter using maps
+│   └── main.go
+├── todo-list/             # Slice practice with a to-do list and switch case
+│   └── main.go
+├── shape-interface/      # Defining and using interfaces
+│   └── main.go
+├── error-handling/        # Error handling with divide-by-zero logic
+│   └── main.go
+└── README.md              # This file
+
 ```
 
 
