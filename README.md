@@ -1,4 +1,4 @@
-# Go Learning Journey 🚀
+# Go Learning Journey 
 
 This repository contains basic programs I wrote while learning the Go programming language. It includes examples of:
 
