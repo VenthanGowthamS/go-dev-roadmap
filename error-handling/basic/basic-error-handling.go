@@ -8,18 +8,18 @@ import (
 func main() {
 	fmt.Println("error handling when invalid values supplied to function")
 
-	resutl1, err1 := divide(33, 1)
+	result1, err1 := divide(33, 1)
 
 	if err1 == nil {
-		fmt.Println("Value after division Mr.Coder>>>>>", resutl1)
+		fmt.Println("Value after division Mr.Coder>>>>>", result1)
 	} else {
 		fmt.Println("error returned-->", err1)
 	}
 
-	resutl2, err2 := divide(33, 0)
+	result2, err2 := divide(33, 0)
 
 	if err2 == nil {
-		fmt.Println("Value after division Mr.Coder>>>>>", resutl2)
+		fmt.Println("Value after division Mr.Coder>>>>>", result2)
 	} else {
 		fmt.Println("error returned-->", err2)
 	}
