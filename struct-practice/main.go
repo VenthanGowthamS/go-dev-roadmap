@@ -8,6 +8,7 @@ func main() {
 	fmt.Println(sub())
 	p := Person{Name: "john", Age: 35}
 	fmt.Println(p.Name)
+	fmt.Print(p.Age)
 
 }
 

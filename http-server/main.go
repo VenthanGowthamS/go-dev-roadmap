@@ -19,12 +19,14 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	//send response back to browser
 
-	fmt.Fprintln(w, "Thanks for checking venthan awesome work")
+	fmt.Fprintln(w, "Thanks for checking Mr.Coder awesome work")
 
 }
 
 func main() {
 	http.HandleFunc("/", handler)
 	fmt.Println("🌐 Started web server at localhost:8080")
+	//This keeps the server running, continuously listening for incoming HTTP requests.
+	//Uses nil to say: “Use the default router, where I already registered the path / to the handler function.”
 	http.ListenAndServe(":8080", nil)
 }

@@ -40,7 +40,7 @@ func main() {
 	}
 
 	//finaly venthan print the sentence enter with the values
-	fmt.Println("\n words frquency count in the sentence you entered Mr.Venthan")
+	fmt.Println("\n words frequency count in the sentence you entered Mr.Coder")
 
 	for word, count := range wordcount {
 
