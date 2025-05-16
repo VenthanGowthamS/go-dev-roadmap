@@ -21,7 +21,7 @@ func safehandler(w http.ResponseWriter, r *http.Request) {
 
 		if err := recover(); err != nil {
 
-			http.Error(w, "website crash avoided", http.StatusInternalServerError)
+			http.Error(w, "website crash avoided Mr.Coder", http.StatusInternalServerError)
 			fmt.Println("Recovered from panic", err)
 		}
 
