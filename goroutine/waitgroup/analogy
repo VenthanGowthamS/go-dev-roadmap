@@ -1,0 +1,23 @@
+         +-----------------------+
+         |       House (WG)       |   <-- WaitGroup variable (one address)
+         |                       |
+         |   +----------------+  |
+         |   | Counter = 4    |  |   <-- single counter inside WaitGroup
+         |   +----------------+  |
+         +-----------------------+
+               ^    ^    ^    ^
+               |    |    |    |
+          Goroutine Goroutine Goroutine Goroutine
+            #1        #2       #3       #4
+
+The house is the WaitGroup instance stored at a single memory address.
+
+Inside the house, there’s one counter (initially 4, because 4 goroutines are added).
+
+Each goroutine shares this same house and accesses the same counter.
+
+When a goroutine finishes, it calls Done(), which reduces the counter by 1.
+
+The counter moves like this:
+Counter: 4 --> 3 --> 2 --> 1 --> 0
+When the counter reaches 0, the WaitGroup knows all goroutines are done, so wg.Wait() unblocks.

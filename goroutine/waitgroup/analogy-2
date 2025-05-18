@@ -1,0 +1,84 @@
+Initial State:
+  Main()
+    |
+    |-- var wg sync.WaitGroup   // wg.counter = 0
+
+Loop over slice:
+    |
+    |-- wg.Add(1)   // counter = 1
+    |-- go print("Hi") --> will run concurrently
+    |
+    |-- wg.Add(1)   // counter = 2
+    |-- go print("How are you?")
+    |
+    |-- wg.Add(1)   // counter = 3
+    |-- go print("Nice to meet you")
+    |
+    |-- wg.Add(1)   // counter = 4
+    |-- go print("Bye")
+
+Main then hits:
+  wg.Wait()  👈  It pauses here until counter == 0
+
+Now each go routine runs:
+
+  goroutine 1:
+    print("Hi")
+    wg.Done()     --> counter = 3
+
+  goroutine 2:
+    print("How are you?")
+    wg.Done()     --> counter = 2
+
+  goroutine 3:
+    print("Nice to meet you")
+    wg.Done()     --> counter = 1
+
+  goroutine 4:
+    print("Bye")
+    wg.Done()     --> counter = 0 ✅
+
+Main thread resumes:
+  wg.Wait() unblocks, counter is now 0 → main exits.
+
+
+
+ ┌─────────────┐
+ │  main()     │
+ └─────┬───────┘
+       │
+       ▼
+     Create wg
+     var wg sync.WaitGroup
+
+ ┌────────────────────────────────────────────────────────┐
+ │  Memory:                                               │
+ │  wg located at address: 0xABC0                         │
+ │  Internal counter value: starts at 0                   │
+ └────────────────────────────────────────────────────────┘
+
+Loop over messages: ["Hi", "from", "Go", "Lang"]
+
+For each msg:
+───────────────
+
+1. Add(1) → counter += 1
+2. Start goroutine → pass &wg (i.e., address 0xABC0)
+3. Inside goroutine:
+     - Print msg
+     - wg.Done() → counter -= 1
+
+╔════════════════════════════════════════════════════════╗
+║ Concurrent Goroutines All Use Same Pointer → 0xABC0   ║
+╠════════════════════════════════════════════════════════╣
+║ goroutine 1 ("Hi")     → wg.Done() on 0xABC0          ║
+║ goroutine 2 ("from")   → wg.Done() on 0xABC0          ║
+║ goroutine 3 ("Go")     → wg.Done() on 0xABC0          ║
+║ goroutine 4 ("Lang")   → wg.Done() on 0xABC0          ║
+╚════════════════════════════════════════════════════════╝
+
+Wait:
+  wg.Wait() blocks until counter at 0xABC0 == 0
+
+When all goroutines complete:
+  counter = 0 → main continues → program ends ✅
