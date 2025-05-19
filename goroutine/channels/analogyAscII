@@ -1,0 +1,46 @@
+         +-----------------------------------+
+         |           Pipe Station (ch)       |   <-- Channel (shared message tube)
+         |  (1 tunnel, shared by everyone)   |
+         +-----------------------------------+
+                      ^
+                      |
+   +------------------+------------------+------------------+
+   |                  |                  |                  |
+Goroutine #1     Goroutine #2      Goroutine #3      Goroutine #4
+   sends             sends             sends             sends
+  "Hi"              "from"            "Go"              "Lang"
+   |                  |                  |                  |
+   +--------------------------------------------------------+
+                      |
+                 [ Channel ch ]  <-- messages flow here
+                      |
+                  Main function
+                  receives msgs
+                      |
+               +----------------+
+               | Print or Use   |
+               | the messages   |
+               +----------------+
+
+
+Goroutine 1:  [Hello]   \
+Goroutine 2:  [from]     } --> 📨 Channel (like a tube) --> Main Goroutine reads:
+Goroutine 3:  [Go]      /                        |
+                                               v
+                                    🔄 <- Receiving end
+                                🧑‍💻 Main Goroutine prints message
+
+Goroutine #1: ch <- "Hi"
+Goroutine #2: ch <- "from"
+Goroutine #3: ch <- "Go"
+Goroutine #4: ch <- "Lang"
+
+Main: <- ch → "Hi"
+Main: <- ch → "from"
+Main: <- ch → "Go"
+Main: <- ch → "Lang"
+
+note:
+make(chan T)	Creates a channel for type T (string here)
+ch <- value	Send value into channel
+<-ch	Receive value from channel
