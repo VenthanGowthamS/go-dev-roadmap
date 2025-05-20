@@ -40,7 +40,22 @@ Main: <- ch → "from"
 Main: <- ch → "Go"
 Main: <- ch → "Lang"
 
-note:
+
 make(chan T)	Creates a channel for type T (string here)
 ch <- value	Send value into channel
 <-ch	Receive value from channel
+
+    +----------------------+
+    |   Unbuffered Channel  |
+    |                      |
+    |   [No slots, direct] |
+    |                      |
+    +----------------------+
+
+Sender: ch <- "X"   --> waits here until
+
+Receiver: <- ch     <-- ready to receive
+
+Only when both sender and receiver meet, message passes instantly.
+
+No storage. No queue.
