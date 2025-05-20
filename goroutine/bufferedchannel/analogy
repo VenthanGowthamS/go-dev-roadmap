@@ -1,0 +1,65 @@
+    +-----------------------------+
+    |       Buffered Channel       |
+    |                             |
+    |  +-------+-------+-------+  |
+    |  |   A   |   B   |   C   |  |  <-- Buffer slots filled
+    |  +-------+-------+-------+  |
+    |                             |
+    +-----------------------------+
+          ^       ^       ^
+         /         \       \
+Goroutine1   Goroutine2  Goroutine3   (senders filled the buffer)
+
+Next senders block here waiting:
+Goroutine4 (D)  [BLOCKED]
+Goroutine5 (E)  [BLOCKED]
+Goroutine6 (F)  [BLOCKED]
+
+Receiver starts reading:
+<-ch reads A → frees slot → unblocks Goroutine4 → D stored
+
+Buffer after receiving A and sending D:
+    +-------+-------+-------+
+    |   B   |   C   |   D   |
+    +-------+-------+-------+
+
+
+
+📦 Analogy for Buffered Channel (Think of a Box with Slots)
+🔧 Setup:
+Channel with buffer size 3 → box with 3 empty slots.
+
+6 goroutines try to send a message into this box.
+
+Receiver takes messages out of the box.
+
+  [Buffered Channel] → Think of a message box with 3 slots
+
+      +-------+-------+-------+
+Slot: |   A   |   B   |   C   |  ← buffer filled by first 3 goroutines
+      +-------+-------+-------+
+             ↑
+        Ch is full now
+Now, other goroutines (trying to send D, E, F) get stuck:
+   Goroutines trying to send:
+   D → BLOCKED (waiting)
+   E → BLOCKED (waiting)
+   F → BLOCKED (waiting)
+Then, the receiver starts pulling:
+Main: <-ch → pulls A  → box = [B, C]
+       → unblocks goroutine D
+       → D pushes to box → box = [B, C, D]
+This continues until all 6 messages are sent and received.
+
+1. First 3 goroutines fill the channel buffer.
+2. Remaining goroutines block on send (← ch).
+3. Main goroutine starts receiving (→ ch).
+4. As buffer frees up, blocked goroutines send.
+5. Repeat until all done.
+
+
+Unbuffered Channel = No box, just a handshake
+
+    Goroutine: ch <- "msg"    → waits at the door
+    Main:      <- ch          → opens door
+    Message passed directly
