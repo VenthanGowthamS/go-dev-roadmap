@@ -1,0 +1,16 @@
++--------------------------+
+|      MAIN FUNCTION       |
++--------------------------+
+           |
+           |   Launches goroutine
+           V
+ +------------------------+              +-------------------------+
+ |  go func() {           |    --->      |    GOROUTINE            |
+ |      ch <- "A"         |              | - Send message to ch    |
+ |  }()                   |              +-------------------------+
+ +------------------------+              (executes this anonymously)
+           |
+           V
+ +--------------------------+
+ |   Continues main thread  |   <--- does NOT wait for goroutine
+ +--------------------------+
