@@ -1,0 +1,24 @@
+                     +------------------------+
+                     |   Main Goroutine       |
+                     |   (Receiver)           |
+                     |                        |
+                     |  sum := 0              |
+                     |  for val := range ch { |
+                     |      sum += val        |
+                     |  }                     |
+                     +------------------------+
+                                ↑
+                                |
+                                | receives from channel (blocks if empty)
+                                |
+                        [ Channel (unbuffered) ]
+                                |
+                                | sends into channel (blocks if full or unreceived)
+                                ↓
+                  +----------------------------+
+                  |  Goroutine (sendNumbers)   |
+                  |                            |
+                  |  for i := 1 to 5           |
+                  |      ch <- i               |
+                  |  close(ch)                 |
+                  +----------------------------+
