@@ -28,7 +28,7 @@ func main() {
 		if guess < number {
 			fmt.Println("guess is lesser than i guessed try again with something higher input buddy")
 		} else if guess > number {
-			fmt.Println("Your guess values is higher than i have chooese guess for some low number")
+			fmt.Println("Your guess values is higher than i have choose guess for some low number")
 		} else {
 			fmt.Printf("correct guess in attemts :%d", attempts)
 			break
