@@ -1,0 +1,8 @@
+[0][0] [0][1] [0][2]
+[1][0] [1][1] [1][2]
+[2][0] [2][1] [2][2]
+
+
+i is for rows → it tells us which row we're on.
+
+j is for columns → it tells us which column within that row.
