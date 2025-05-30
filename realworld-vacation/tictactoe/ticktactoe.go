@@ -13,20 +13,31 @@ func main() {
 	//var col int equals
 	var row, col int
 	player := "X"
-	fmt.Println("printing current board:")
-	printboard(board)
 
-	fmt.Println("Enter row (0-2)")
-	fmt.Scan(&row)
+	for i := 0; i < 9; i++ {
 
-	fmt.Println("enter coloumn (0-2)")
-	fmt.Scan(&col)
+		fmt.Println("printing current board:")
+		printboard(board)
 
-	if row >= 0 && row <= 2 && col >= 0 && col <= 2 && board[row][col] == "" {
-		//update the board wiht player
-		board[row][col] = player
-	} else {
-		fmt.Println("invalid value ! please try again")
+		fmt.Println("Enter row (0-2)")
+		fmt.Scan(&row)
+
+		fmt.Println("enter coloumn (0-2)")
+		fmt.Scan(&col)
+
+		if row >= 0 && row <= 2 && col >= 0 && col <= 2 && board[row][col] == "" {
+			//update the board wiht player
+			board[row][col] = player
+		} else {
+			fmt.Println("invalid value ! please try again")
+			i--
+			continue
+		}
+		if player == "X" {
+			player = "O"
+		} else {
+			player = "X"
+		}
 	}
 	fmt.Println("updated board:")
 	printboard(board)
