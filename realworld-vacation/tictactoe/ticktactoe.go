@@ -26,8 +26,15 @@ func main() {
 		fmt.Scan(&col)
 
 		if row >= 0 && row <= 2 && col >= 0 && col <= 2 && board[row][col] == "" {
-			//update the board wiht player
+			//update the board with player
 			board[row][col] = player
+
+			if checkwinner(board, player) {
+				printboard(board)
+				fmt.Printf("player %s wins", player)
+				return
+
+			}
 		} else {
 			fmt.Println("invalid value ! please try again")
 			i--
@@ -41,6 +48,9 @@ func main() {
 	}
 	fmt.Println("updated board:")
 	printboard(board)
+	fmt.Println("Final board:")
+	printboard(board)
+	fmt.Println("It's a draw!")
 }
 
 func printboard(board [3][3]string) {
@@ -58,4 +68,46 @@ func printboard(board [3][3]string) {
 		}
 		fmt.Println()
 	}
+}
+
+func checkwinner(board [3][3]string, player string) bool {
+
+	//check coloumn
+	for i := 0; i < 3; i++ {
+
+		if board[0][i] == player && board[1][i] == player && board[2][i] == player {
+
+			return true
+
+		}
+
+	}
+
+	//check row
+	for i := 0; i < 3; i++ {
+
+		if board[i][0] == player && board[i][1] == player && board[i][2] == player {
+
+			return true
+
+		}
+
+	}
+
+	//check diagnol 1
+
+	if board[0][0] == player && board[1][1] == player && board[2][2] == player {
+
+		return true
+
+	}
+	//check diagnol 2
+	if board[0][2] == player && board[1][1] == player && board[2][0] == player {
+
+		return true
+
+	}
+
+	return false
+
 }
