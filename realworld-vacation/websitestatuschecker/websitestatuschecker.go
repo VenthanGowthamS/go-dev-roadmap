@@ -42,7 +42,7 @@ func checkwebsite(url string, c chan string) {
 	//// handle error (e.g., site is down, DNS failure, etc.)
 	resp, err := client.Get(url)
 	if err != nil {
-		c <- fmt.Sprintf(" %s error is %d", url, err)
+		c <- fmt.Sprintf(" %s error is %v", url, err)
 		return
 	}
 
