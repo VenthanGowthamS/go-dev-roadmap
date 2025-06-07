@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 )
 
 func main() {
@@ -20,10 +21,14 @@ func main() {
 		printboard(board)
 
 		fmt.Println("Enter row (0-2)")
-		fmt.Scan(&row)
+		if !readNumber(&row) {
+			return
+		}
 
 		fmt.Println("enter coloumn (0-2)")
-		fmt.Scan(&col)
+		if !readNumber(&col) {
+			return
+		}
 
 		if row >= 0 && row <= 2 && col >= 0 && col <= 2 && board[row][col] == "" {
 			//update the board with player
@@ -31,7 +36,7 @@ func main() {
 
 			if checkwinner(board, player) {
 				printboard(board)
-				fmt.Printf("player %s wins", player)
+				fmt.Printf("player %s wins\n", player)
 				return
 
 			}
@@ -46,8 +51,6 @@ func main() {
 			player = "X"
 		}
 	}
-	fmt.Println("updated board:")
-	printboard(board)
 	fmt.Println("Final board:")
 	printboard(board)
 	fmt.Println("It's a draw!")
@@ -110,4 +113,26 @@ func checkwinner(board [3][3]string, player string) bool {
 
 	return false
 
+}
+
+// readNumber reads one whole number into n. If the input is not a number, it is
+// skipped and the player is asked again. It returns false when input has ended
+// (for example Ctrl+D), so the game stops instead of looping forever.
+func readNumber(n *int) bool {
+	for {
+		_, err := fmt.Scan(n)
+		if err == nil {
+			return true
+		}
+		if err == io.EOF {
+			fmt.Println("\nno more input, game stopped")
+			return false
+		}
+		var skip string
+		if _, err := fmt.Scan(&skip); err == io.EOF {
+			fmt.Println("\nno more input, game stopped")
+			return false
+		}
+		fmt.Println("please enter a number (0-2)")
+	}
 }
